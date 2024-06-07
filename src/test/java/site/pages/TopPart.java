@@ -1,9 +1,9 @@
-package prestaShop.pages;
+package site.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class TopPart
+public abstract class TopPart
 {
     protected WebDriver driver;
 
@@ -14,8 +14,6 @@ public class TopPart
     private WebElement search;
     private WebElement contactUs;
 
-    //public TopPart(){  }
-
     public TopPart(WebDriver driver)
     {
         this.driver = driver;
@@ -25,8 +23,16 @@ public class TopPart
     private void InitElements()
     {
 
+        System.out.println("    Top part inited");
 
+    }
 
+    // Business logic
+
+    protected HomePage goToHomePage()
+    {
+        //clickLogo();
+        return new HomePage(driver);
     }
 
 
