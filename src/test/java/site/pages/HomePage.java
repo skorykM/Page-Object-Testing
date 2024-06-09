@@ -1,5 +1,6 @@
 package site.pages;
 
+import components.InventoryContainer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,6 +9,7 @@ public class HomePage extends TopPart
 {
 
     private WebElement title;
+    private InventoryContainer inventory;
 
     public HomePage(WebDriver driver)
     {
@@ -18,10 +20,9 @@ public class HomePage extends TopPart
 
     private void initElements()
     {
-        //appLogo = driver.findElement(By.cssSelector("div.app_logo"));
         //wait.until(d -> popularProducts.isDisplayed());
-
         title = driver.findElement(By.cssSelector("span.title"));
+        inventory = new InventoryContainer(driver);
 
         System.out.println("    Home page inited");
     }
@@ -30,9 +31,7 @@ public class HomePage extends TopPart
         return title;
     }
 
-    public void loadApplication()
-    {
-
+    public InventoryContainer getInventory() {
+        return inventory;
     }
-
 }

@@ -4,7 +4,6 @@ package site.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import tests.TestRunner;
 
 public class LoginPage
 {
@@ -37,6 +36,13 @@ public class LoginPage
     public WebElement getErrorBox() {
         errorBox = driver.findElement(By.cssSelector("div.error-message-container.error"));
         return errorBox;
+    }
+
+    public HomePage SuccessfulUserLogin(String username)
+    {
+        setUserName(username);
+        setPassword("secret_sauce");
+        return loginBtnClick();
     }
 
     public String getUsername() { return username.getAttribute("value"); }

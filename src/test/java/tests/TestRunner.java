@@ -13,20 +13,21 @@ import java.time.Duration;
 public abstract class TestRunner
 {
     protected static WebDriver driver;
-    public static Wait<WebDriver> wait;
+    //public static Wait<WebDriver> wait;
 
     @BeforeAll
     public static void beforeAll()
     {
+        System.out.println("Before all executed");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2)); // Implicit wait
-        System.out.println("Before all executed");
+
     }
 
     @BeforeEach
     public void beforeEach()
     {
-
+        driver.get("https://www.saucedemo.com/");
         //wait = new WebDriverWait(driver,Duration.ofSeconds(2)); // Explicit wait
     }
 
