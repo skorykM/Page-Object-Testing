@@ -4,9 +4,13 @@ import components.InventoryContainer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import tests.HomePageTest;
 
 public class HomePage extends TopPart
 {
+    Logger log = LoggerFactory.getLogger(HomePage.class);
 
     private WebElement title;
     private InventoryContainer inventory;
@@ -24,7 +28,7 @@ public class HomePage extends TopPart
         title = driver.findElement(By.cssSelector("span.title"));
         inventory = new InventoryContainer(driver);
 
-        System.out.println("    Home page inited");
+        log.info("Home page initialized");
     }
 
     public WebElement getTitle() {
