@@ -1,13 +1,18 @@
 package site.pages;
 
+import components.InventoryContainer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HomePage extends TopPart
 {
+    Logger log = LoggerFactory.getLogger(HomePage.class);
 
     private WebElement title;
+    private InventoryContainer inventory;
 
     public HomePage(WebDriver driver)
     {
@@ -18,21 +23,18 @@ public class HomePage extends TopPart
 
     private void initElements()
     {
-        //appLogo = driver.findElement(By.cssSelector("div.app_logo"));
         //wait.until(d -> popularProducts.isDisplayed());
-
         title = driver.findElement(By.cssSelector("span.title"));
+        inventory = new InventoryContainer(driver);
 
-        System.out.println("    Home page inited");
+        log.info("Home page initialized");
     }
 
     public WebElement getTitle() {
         return title;
     }
 
-    public void loadApplication()
-    {
-
+    public InventoryContainer mainPageInventory() {
+        return inventory;
     }
-
 }
