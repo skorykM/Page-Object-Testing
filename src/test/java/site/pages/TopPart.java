@@ -1,5 +1,6 @@
 package site.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -10,7 +11,7 @@ public abstract class TopPart
 {
     protected WebDriver driver;
     Logger log = LoggerFactory.getLogger(TopPart.class);
-    private WebElement logo;
+    private WebElement cartBtn;
 
     public TopPart(WebDriver driver)
     {
@@ -20,6 +21,7 @@ public abstract class TopPart
 
     private void InitElements()
     {
+        cartBtn = driver.findElement(By.cssSelector("a.shopping_cart_link"));
         log.info("Top part initialized");
     }
 
@@ -27,8 +29,13 @@ public abstract class TopPart
 
     protected HomePage goToHomePage()
     {
-        //clickLogo();
         return new HomePage(driver);
+    }
+
+    public MyCartPage goToMyCartPage()
+    {
+        cartBtn.click();
+        return new MyCartPage(driver);
     }
 
 

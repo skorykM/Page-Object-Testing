@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tests.HomePageTest;
 
 public class HomePage extends TopPart
 {
@@ -35,7 +34,7 @@ public class HomePage extends TopPart
         return title;
     }
 
-    public InventoryContainer getInventory() {
+    public InventoryContainer mainPageInventory() {
         return inventory;
     }
 }

@@ -23,6 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.Duration;
+import java.util.ArrayList;
 
 public abstract class TestRunner
 {
@@ -30,17 +31,30 @@ public abstract class TestRunner
     //public static Wait<WebDriver> wait;
     Logger log = LoggerFactory.getLogger(TopPart.class);
 
+    protected ArrayList<String> productNames = new ArrayList<String>() {
+        {
+            add("Sauce Labs Backpack");
+            add("Sauce Labs Bike Light");
+            add("Sauce Labs Bolt T-Shirt");
+            add("Sauce Labs Fleece Jacket");
+            add("Sauce Labs Onesie");
+            add("Test.allTheThings() T-Shirt (Red)");
+        }
+    };
+
     @BeforeAll
     public static void beforeAll()
     {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2)); // Implicit wait
+
 
     }
 
     @BeforeEach
     public void beforeEach()
     {
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2)); // Implicit wait
+
         driver.get("https://www.saucedemo.com/");
         //wait = new WebDriverWait(driver,Duration.ofSeconds(2)); // Explicit wait
     }

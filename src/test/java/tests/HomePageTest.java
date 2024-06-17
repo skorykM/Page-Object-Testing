@@ -1,12 +1,15 @@
 package tests;
 
-import org.apache.logging.log4j.LogManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import site.pages.HomePage;
 import site.pages.LoginPage;
+
+import java.util.ArrayList;
 
 public class HomePageTest extends TestRunner
 {
@@ -19,12 +22,20 @@ public class HomePageTest extends TestRunner
     }
 
     @Test
-    public void inventoryTest()
+    public void inventoryPresentTest()
     {
         log.info("Start inventory test");
         Assertions.assertTrue(loginStandart()
-                .getInventory().getInventorySize() > 0,"Inventory items were found");
+                .mainPageInventory().getInventorySize() > 0,"Inventory items were found");
 
+    }
+
+    @Test
+    public void allItemsCorrectDisplayedTest(){
+        log.info("Inventory items test start");
+        Assertions.assertEquals(loginStandart().
+                mainPageInventory().
+                getItemsNames(), productNames);
     }
 
 }
