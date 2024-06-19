@@ -13,12 +13,6 @@ public class CartPageTest extends TestRunner {
 
     Logger log = LoggerFactory.getLogger(CartPageTest.class);
 
-    private HomePage loginStandart()
-    {
-        LoginPage login = new LoginPage(driver);
-        return login.SuccessfulUserLogin("standard_user");
-    }
-
     @ValueSource(strings = {"Sauce Labs Backpack", "Sauce Labs Bike Light", "Sauce Labs Bolt T-Shirt",
             "Sauce Labs Fleece Jacket","Sauce Labs Onesie","Test.allTheThings() T-Shirt (Red)"})
     @ParameterizedTest

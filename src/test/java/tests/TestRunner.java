@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.api.extension.TestWatcher;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Replace;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -15,6 +14,8 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import site.pages.HomePage;
+import site.pages.LoginPage;
 import site.pages.TopPart;
 
 import java.io.File;
@@ -41,6 +42,12 @@ public abstract class TestRunner
             add("Test.allTheThings() T-Shirt (Red)");
         }
     };
+
+    protected HomePage loginStandart()
+    {
+        LoginPage login = new LoginPage(driver);
+        return login.SuccessfulUserLogin("standard_user");
+    }
 
     @BeforeAll
     public static void beforeAll()

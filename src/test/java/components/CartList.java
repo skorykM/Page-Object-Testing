@@ -16,7 +16,7 @@ public class CartList {
 
     public CartList(WebDriver driver) {
         this.driver = driver;
-
+        
         InitElements();
     }
 

@@ -21,7 +21,6 @@ public class MyCartPage {
         try { cartInventory = new CartList(driver); }
         catch (Exception e) { System.out.println("SOMETHING WRONG WITH CART " + e); }
 
-
     }
 
     public CartList cartInventory(){
