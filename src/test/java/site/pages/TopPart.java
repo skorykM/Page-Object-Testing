@@ -10,8 +10,8 @@ import tests.HomePageTest;
 public abstract class TopPart
 {
     protected WebDriver driver;
-    Logger log = LoggerFactory.getLogger(TopPart.class);
     private WebElement cartBtn;
+    private WebElement burgerMenuBtn;
 
     public TopPart(WebDriver driver)
     {
@@ -22,7 +22,7 @@ public abstract class TopPart
     private void InitElements()
     {
         cartBtn = driver.findElement(By.cssSelector("a.shopping_cart_link"));
-        log.info("Top part initialized");
+        burgerMenuBtn = driver.findElement(By.id("react-burger-menu-btn"));
     }
 
     // Business logic
@@ -36,6 +36,15 @@ public abstract class TopPart
     {
         cartBtn.click();
         return new MyCartPage(driver);
+    }
+
+    public BurgerMenu openBurgerMenu(){
+        burgerMenuBtn.click();
+        return new BurgerMenu(driver);
+    }
+
+    public WebElement getBurgerMenuBtn(){
+        return burgerMenuBtn;
     }
 
 

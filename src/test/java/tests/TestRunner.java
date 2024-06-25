@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.TestWatcher;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 public abstract class TestRunner
 {
     protected static WebDriver driver;
-    //public static Wait<WebDriver> wait;
+    public static Wait<WebDriver> wait;
     Logger log = LoggerFactory.getLogger(TopPart.class);
 
     protected ArrayList<String> productNames = new ArrayList<String>() {
@@ -63,7 +64,7 @@ public abstract class TestRunner
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2)); // Implicit wait
 
         driver.get("https://www.saucedemo.com/");
-        //wait = new WebDriverWait(driver,Duration.ofSeconds(2)); // Explicit wait
+        wait = new WebDriverWait(driver,Duration.ofSeconds(3)); // Explicit wait
     }
 
     @RegisterExtension
@@ -98,13 +99,17 @@ public abstract class TestRunner
 
     }
 
-
     @AfterAll
     public static void afterAll()
     {
         if (driver != null) { driver.quit(); }
     }
 
+    protected void waitFor(WebElement element, boolean visible){
 
+        if(visible){  wait.until(d -> element.isDisplayed()); }
+        else {  wait.until(d -> !element.isDisplayed()); }
+
+    }
 
 }

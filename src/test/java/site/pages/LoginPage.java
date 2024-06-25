@@ -45,6 +45,8 @@ public class LoginPage
         return loginBtnClick();
     }
 
+    public WebElement getLoginBtn() { return loginBtn; }
+
     public String getUsername() { return username.getAttribute("value"); }
 
     public String getPassword() { return password.getAttribute("value"); }

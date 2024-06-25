@@ -7,7 +7,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import site.pages.HomePage;
-import site.pages.LoginPage;
 
 public class CartPageTest extends TestRunner {
 
@@ -36,8 +35,8 @@ public class CartPageTest extends TestRunner {
         home.mainPageInventory().addAllItemsToCart();
         Assertions.assertEquals( home.
                         goToMyCartPage().
-                cartInventory().getItemsNamesPresentInCart(),
-                productNames );
+                        cartInventory().getItemsNamesPresentInCart(),
+                        productNames );
 
     }
 

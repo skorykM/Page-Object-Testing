@@ -37,4 +37,8 @@ public class InventoryItem
         addToCardBtn.click();
     }
 
+    public void clickOnProductNameToOpen(){
+        itemName.click();
+    }
+
 }

@@ -66,6 +66,11 @@ public class HomePage extends TopPart
         return dropdownComponent;
     }
 
+    public ChosenProductPage openProductPage(String productName){
+        inventory.clickOnChosenProduct(productName);
+        return new ChosenProductPage(driver);
+    }
+
     public HomePage chooseSortMethod(SortOptions optionName){
         sortDropdownClick();
 

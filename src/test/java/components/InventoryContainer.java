@@ -37,6 +37,12 @@ public class InventoryContainer
         return itemList;
     }
 
+    public void clickOnChosenProduct(String productName){
+        for (InventoryItem item: itemList){
+            if (item.getItemName().contains(productName)){ item.clickOnProductNameToOpen(); break; }
+        }
+    }
+
     public List<String> getItemsNames()
     {
         List<String> names = new ArrayList<>();
