@@ -40,5 +40,8 @@ public class CartList {
         return names;
     }
 
+    public int getCartSize(){
+        return cartItems.size();
+    }
 
 }

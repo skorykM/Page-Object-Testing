@@ -42,4 +42,8 @@ public class ChosenProductPage extends TopPart {
     public WebElement getProductImage() {
         return productImage;
     }
+
+    public void addItemToCart(){
+        addToCartBtn.click();
+    }
 }

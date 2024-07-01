@@ -1,5 +1,6 @@
 package tests;
 
+import components.SortOptions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +27,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public abstract class TestRunner
 {
@@ -33,7 +35,7 @@ public abstract class TestRunner
     public static Wait<WebDriver> wait;
     Logger log = LoggerFactory.getLogger(TopPart.class);
 
-    protected ArrayList<String> productNames = new ArrayList<String>() {
+    protected static final ArrayList<String> productNames = new ArrayList<String>() {
         {
             add("Sauce Labs Backpack");
             add("Sauce Labs Bike Light");
@@ -43,6 +45,11 @@ public abstract class TestRunner
             add("Test.allTheThings() T-Shirt (Red)");
         }
     };
+
+    private static Stream<String> productNamesMethod() {
+        return Stream.of("Sauce Labs Backpack", "Sauce Labs Bike Light", "Sauce Labs Bolt T-Shirt",
+                "Sauce Labs Fleece Jacket","Sauce Labs Onesie","Test.allTheThings() T-Shirt (Red)");
+    }
 
     protected HomePage loginStandart()
     {

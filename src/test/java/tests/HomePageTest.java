@@ -4,6 +4,7 @@ import components.SortOptions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
@@ -13,15 +14,6 @@ import site.pages.HomePage;
 public class HomePageTest extends TestRunner
 {
     Logger log = LoggerFactory.getLogger(HomePageTest.class);
-
-    public static Object[][] FindSortOptions(){
-        return new Object[][]{
-                {SortOptions.SORT_HILO},
-                {SortOptions.SORT_LOHI},
-                {SortOptions.SORT_AZ},
-                {SortOptions.SORT_ZA},
-        };
-    }
 
     @Test
     public void inventoryPresentTest()
@@ -41,7 +33,7 @@ public class HomePageTest extends TestRunner
     }
 
     @ParameterizedTest
-    @MethodSource("FindSortOptions")
+    @EnumSource(SortOptions.class)
     public void sortDropdownPresent(SortOptions sort){
 
         HomePage home =  loginStandart().chooseSortMethod(sort);
