@@ -3,6 +3,7 @@ package components;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import site.pages.HomePage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,12 @@ public class InventoryContainer
         return itemList;
     }
 
+    public void clickOnChosenProduct(String productName){
+        for (InventoryItem item: itemList){
+            if (item.getItemName().contains(productName)){ item.clickOnProductNameToOpen(); break; }
+        }
+    }
+
     public List<String> getItemsNames()
     {
         List<String> names = new ArrayList<>();
@@ -52,7 +59,7 @@ public class InventoryContainer
         return itemList;
     }
 
-    public void addToCartItem(String itemName){
+    public HomePage addToCartItem(String itemName){
 
         for (int i=0; i < getInventorySize(); i++){
             if( itemList.get(i).getItemName().equals(itemName) )
@@ -62,13 +69,29 @@ public class InventoryContainer
             }
         }
 
+        return new HomePage(driver);
     }
 
-    public void addAllItemsToCart(){
+    public HomePage removeItemFromCart(String itemName){
+        for (int i=0; i < getInventorySize(); i++){
+            if( itemList.get(i).getItemName().equals(itemName) )
+            {
+                itemList.get(i).removeFromCartBtnClick();
+                break;
+            }
+        }
+
+        return new HomePage(driver);
+    }
+
+    public HomePage addAllItemsToCart(){
         for (InventoryItem item : itemList){
             item.addToCardBtnClick();
         }
+        return new HomePage(driver);
     }
+
+
 
 
 }

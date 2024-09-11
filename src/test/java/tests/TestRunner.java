@@ -1,20 +1,23 @@
 package tests;
 
+import components.SortOptions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.api.extension.TestWatcher;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Replace;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import site.pages.HomePage;
+import site.pages.LoginPage;
 import site.pages.TopPart;
 
 import java.io.File;
@@ -24,14 +27,15 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public abstract class TestRunner
 {
     protected static WebDriver driver;
-    //public static Wait<WebDriver> wait;
+    public static Wait<WebDriver> wait;
     Logger log = LoggerFactory.getLogger(TopPart.class);
 
-    protected ArrayList<String> productNames = new ArrayList<String>() {
+    protected static final ArrayList<String> productNames = new ArrayList<String>() {
         {
             add("Sauce Labs Backpack");
             add("Sauce Labs Bike Light");
@@ -41,6 +45,17 @@ public abstract class TestRunner
             add("Test.allTheThings() T-Shirt (Red)");
         }
     };
+
+    private static Stream<String> productNamesMethod() {
+        return Stream.of("Sauce Labs Backpack", "Sauce Labs Bike Light", "Sauce Labs Bolt T-Shirt",
+                "Sauce Labs Fleece Jacket","Sauce Labs Onesie","Test.allTheThings() T-Shirt (Red)");
+    }
+
+    protected HomePage loginStandart()
+    {
+        LoginPage login = new LoginPage(driver);
+        return login.SuccessfulUserLogin("standard_user");
+    }
 
     @BeforeAll
     public static void beforeAll()
@@ -56,7 +71,7 @@ public abstract class TestRunner
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2)); // Implicit wait
 
         driver.get("https://www.saucedemo.com/");
-        //wait = new WebDriverWait(driver,Duration.ofSeconds(2)); // Explicit wait
+        wait = new WebDriverWait(driver,Duration.ofSeconds(3)); // Explicit wait
     }
 
     @RegisterExtension
@@ -91,13 +106,17 @@ public abstract class TestRunner
 
     }
 
-
     @AfterAll
     public static void afterAll()
     {
         if (driver != null) { driver.quit(); }
     }
 
+    protected void waitFor(WebElement element, boolean visible){
 
+        if(visible){  wait.until(d -> element.isDisplayed()); }
+        else {  wait.until(d -> !element.isDisplayed()); }
+
+    }
 
 }

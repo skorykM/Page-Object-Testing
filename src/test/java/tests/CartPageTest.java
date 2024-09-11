@@ -1,34 +1,42 @@
 package tests;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import site.pages.HomePage;
-import site.pages.LoginPage;
 
 public class CartPageTest extends TestRunner {
 
     Logger log = LoggerFactory.getLogger(CartPageTest.class);
 
-    private HomePage loginStandart()
-    {
-        LoginPage login = new LoginPage(driver);
-        return login.SuccessfulUserLogin("standard_user");
-    }
-
-    @ValueSource(strings = {"Sauce Labs Backpack", "Sauce Labs Bike Light", "Sauce Labs Bolt T-Shirt",
-            "Sauce Labs Fleece Jacket","Sauce Labs Onesie","Test.allTheThings() T-Shirt (Red)"})
+    @ValueSource (ints = {0,1,3})
     @ParameterizedTest
-    public void addItemToCartTest(String productName){
-        log.info("Cart test start");
+    public void removeItemFromCartTest(int productPosition){
+        log.info("Remove item from cart test start");
+
+        String productName = productNames.get(productPosition);
 
         HomePage home = loginStandart();
-        home.mainPageInventory().addToCartItem(productName);
 
-        Assertions.assertTrue( home.goToMyCartPage().cartInventory().
+        assertEquals(0,home.mainPageInventory().addToCartItem(productName)
+                .mainPageInventory().removeItemFromCart(productName)
+                .goToMyCartPage().cartInventory().getCartSize());
+    }
+
+
+    @MethodSource("productNamesMethod")
+    @ParameterizedTest
+    public void addItemToCartTest(String productName){
+        log.info("Add item to cart test start");
+
+        HomePage home = loginStandart();
+
+        assertTrue( home.mainPageInventory().addToCartItem(productName).
+                goToMyCartPage().cartInventory().
                 getItemsNamesPresentInCart().
                 contains(productName));
 
@@ -36,14 +44,14 @@ public class CartPageTest extends TestRunner {
 
     @Test
     public void addAllItemsToCartTest(){
-        log.info("All items into cart test start");
+        log.info("Add all items into cart test start");
 
         HomePage home = loginStandart();
-        home.mainPageInventory().addAllItemsToCart();
-        Assertions.assertEquals( home.
+
+        assertEquals( home.mainPageInventory().addAllItemsToCart().
                         goToMyCartPage().
-                cartInventory().getItemsNamesPresentInCart(),
-                productNames );
+                        cartInventory().getItemsNamesPresentInCart(),
+                        productNames );
 
     }
 
